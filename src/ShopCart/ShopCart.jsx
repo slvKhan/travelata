@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Product from './Product';
+import ProductInShopCart from './ProductInShopCart';
 
 export default class ShopCart extends React.Component {
   constructor(props) {
@@ -9,8 +10,12 @@ export default class ShopCart extends React.Component {
       products: [],
       selectedProducts: {
         1: {
-          id_product: 2,
+          idProduct: 2,
           amount: 1,
+        },
+        2: {
+          idProduct: 5,
+          amount: 3,
         },
       },
       amountPrice: 31000,
@@ -22,10 +27,32 @@ export default class ShopCart extends React.Component {
     this.fetchProducts();
   }
 
+  getProduct = (id) => {
+    const { products } = this.state;
+    return products.filter((product) => product.id === id);
+  }
+
   handleAddProduct = (id) => (e) => {
     e.preventDefault();
-    const { products } = this.state;
-    const selectedProduct = products.filter((product) => product.id === id);
+    const selectedProduct = this.getProduct(id);
+    alert(JSON.stringify(selectedProduct));
+  }
+
+  increaseProduct = (id) => (e) => {
+    e.preventDefault();
+    const selectedProduct = this.getProduct(id);
+    alert(JSON.stringify(selectedProduct));
+  }
+
+  reduceProduct = (id) => (e) => {
+    e.preventDefault();
+    const selectedProduct = this.getProduct(id);
+    alert(JSON.stringify(selectedProduct));
+  }
+
+  removeProduct = (id) => (e) => {
+    e.preventDefault();
+    const selectedProduct = this.getProduct(id);
     alert(JSON.stringify(selectedProduct));
   }
 
@@ -55,7 +82,29 @@ export default class ShopCart extends React.Component {
   }
 
   render() {
-    const { products, amountPrice, amountProducts } = this.state;
+    const {
+      products,
+      amountPrice,
+      amountProducts,
+      selectedProducts,
+    } = this.state;
+
+    if (!products.length) {
+      return null;
+    }
+
+    const selectedProductMapped = Object.entries(selectedProducts).map(([key, value]) => {
+      const [product] = products.filter((el) => el.id === value.idProduct);
+
+      return {
+        id: Number(key),
+        idProduct: product.id,
+        productName: product.productName,
+        amountPrice: value.amount * product.price,
+        amount: value.amount,
+      };
+    });
+
     const titleStyle = {
       height: '5vh',
     };
@@ -74,14 +123,26 @@ export default class ShopCart extends React.Component {
 
           <div className="products col-lg-6">
             {CategoryHeader}
-            {products.map((el) => (
-              <Product key={el.id} feats={el} addProduct={this.handleAddProduct} />
+            {products.map((product) => (
+              <Product
+                key={product.id}
+                product={product}
+                addProduct={this.handleAddProduct}
+              />
             ))}
           </div>
 
           <div className="products col-lg-6">
             {this.productsCartHeader(amountPrice, amountProducts, titleStyle)}
-
+            {selectedProductMapped.map((product) => (
+              <ProductInShopCart
+                key={product.idProduct}
+                product={product}
+                increaseProduct={this.increaseProduct}
+                reduceProduct={this.reduceProduct}
+                removeProduct={this.reduceProduct}
+              />
+            ))}
           </div>
         </div>
       </div>

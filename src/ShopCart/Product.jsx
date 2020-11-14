@@ -2,10 +2,13 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 
-const Product = ({ feats, addProduct }) => {
+const Product = ({ product, addProduct }) => {
   const {
-    id, productName, price, amount,
-  } = feats;
+    id,
+    productName,
+    price,
+    amount,
+  } = product;
 
   return (
     <Card id={id}>
