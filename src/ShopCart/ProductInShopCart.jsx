@@ -4,7 +4,7 @@ import { Card, Button } from 'react-bootstrap';
 
 const ProductShopCart = ({
   product,
-  increaseProduct,
+  handleincreaseProduct,
   reduceProduct,
   removeProduct,
 }) => {
@@ -20,7 +20,7 @@ const ProductShopCart = ({
     <Card id={idProduct} className="mb-3">
       <Card.Body>
         <div className="content-wrap row">
-          <span className="amount p-0 col-1">
+          <span className="amount pr-0 col-1">
             <span>№</span>
             <span>{`${id}`}</span>
           </span>
@@ -30,12 +30,20 @@ const ProductShopCart = ({
           </span>
 
           <div className="quantity-controll col-3">
-            <Button variant="outline-secondary" className="col-3 ml-1 p-0 btn-sm" onClick={reduceProduct(id)}>
+            <Button
+              variant="outline-secondary"
+              className="col-3 ml-1 p-0 btn-sm"
+              onClick={reduceProduct(idProduct)}
+            >
               -
             </Button>
             <span>{` ${amount} `}</span>
             <span>шт</span>
-            <Button variant="outline-success" className="col-3 ml-1 p-0 btn-sm" onClick={increaseProduct(id)}>
+            <Button
+              variant="outline-success"
+              className="col-3 ml-1 p-0 btn-sm"
+              onClick={handleincreaseProduct(idProduct)}
+            >
               +
             </Button>
           </div>
@@ -45,8 +53,8 @@ const ProductShopCart = ({
             <span>рублей</span>
           </div>
         </div>
-        <div className="remove-wrap">
-          <Button variant="secondary" className="w-50 mt-3" onClick={removeProduct(id)}>
+        <div className="remove-wrap text-center mt-3">
+          <Button variant="outline-danger" className="btn-sm w-50" onClick={removeProduct(id)}>
             удалить
           </Button>
         </div>

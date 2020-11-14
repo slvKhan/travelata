@@ -11,7 +11,7 @@ const Product = ({ product, addProduct }) => {
   } = product;
 
   return (
-    <Card id={id}>
+    <Card id={id} className="mb-2">
       <Card.Body className="row">
         <span className="amount col-3">
           <span>Осталось</span>

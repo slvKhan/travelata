@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { findLastKey } from 'lodash';
 import Product from './Product';
 import ProductInShopCart from './ProductInShopCart';
 
@@ -32,16 +33,50 @@ export default class ShopCart extends React.Component {
     return products.filter((product) => product.id === id);
   }
 
-  handleAddProduct = (id) => (e) => {
-    e.preventDefault();
-    const selectedProduct = this.getProduct(id);
-    alert(JSON.stringify(selectedProduct));
+  isProductSelected = (id) => {
+    const { selectedProducts } = this.state;
+    const [selectedProduct] = Object
+      .entries(selectedProducts)
+      .filter(([, product]) => product.idProduct === id);
+
+    return !!selectedProduct;
   }
 
-  increaseProduct = (id) => (e) => {
+  increaseProduct = (id) => {
+    const { selectedProducts } = this.state;
+    const [[key, value]] = Object
+      .entries(selectedProducts)
+      .filter(([, product]) => product.idProduct === id);
+    const newSelectedProduct = {
+      idProduct: value.idProduct,
+      amount: value.amount + 1,
+    };
+    this.setState({ selectedProducts: { ...selectedProducts, [key]: { ...newSelectedProduct } } });
+  }
+
+  handleAddProduct = (id) => (e) => {
     e.preventDefault();
-    const selectedProduct = this.getProduct(id);
-    alert(JSON.stringify(selectedProduct));
+
+    if (this.isProductSelected(id)) {
+      this.increaseProduct(id);
+      return;
+    }
+
+    const { selectedProducts } = this.state;
+    const arrayOfSelectedProducts = Object.entries(selectedProducts);
+    const key = !arrayOfSelectedProducts.length
+      ? 1
+      : Number(findLastKey(selectedProducts)) + 1;
+    const newSelectedProduct = { [key]: { idProduct: id, amount: 1 } };
+
+    this.setState({
+      selectedProducts: { ...selectedProducts, ...newSelectedProduct },
+    });
+  }
+
+  handleincreaseProduct = (id) => (e) => {
+    e.preventDefault();
+    this.increaseProduct(id);
   }
 
   reduceProduct = (id) => (e) => {
@@ -106,7 +141,7 @@ export default class ShopCart extends React.Component {
     });
 
     const titleStyle = {
-      height: '5vh',
+      height: '50px',
     };
 
     const CategoryHeader = (
@@ -138,7 +173,7 @@ export default class ShopCart extends React.Component {
               <ProductInShopCart
                 key={product.idProduct}
                 product={product}
-                increaseProduct={this.increaseProduct}
+                handleincreaseProduct={this.handleincreaseProduct}
                 reduceProduct={this.reduceProduct}
                 removeProduct={this.reduceProduct}
               />
