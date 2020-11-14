@@ -42,6 +42,15 @@ export default class ShopCart extends React.Component {
     return !!selectedProduct;
   }
 
+  isLastProduct = (id) => {
+    const { selectedProducts } = this.state;
+    const [[, value]] = Object
+      .entries(selectedProducts)
+      .filter(([, product]) => product.idProduct === id);
+
+    return value.amount === 1;
+  }
+
   increaseProduct = (id) => {
     const { selectedProducts } = this.state;
     const [[key, value]] = Object
@@ -75,6 +84,7 @@ export default class ShopCart extends React.Component {
       .entries(selectedProducts)
       .filter(([, product]) => product.idProduct === id);
     const newSelectedProducts = omit(selectedProducts, [key]);
+
     this.setState({ selectedProducts: newSelectedProducts });
   }
 
@@ -105,6 +115,11 @@ export default class ShopCart extends React.Component {
 
   handlereduceProduct = (id) => (e) => {
     e.preventDefault();
+    if (this.isLastProduct(id)) {
+      this.removeProduct(id);
+      return;
+    }
+
     this.reduceProduct(id);
   }
 
