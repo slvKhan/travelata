@@ -5,8 +5,8 @@ import { Card, Button } from 'react-bootstrap';
 const ProductShopCart = ({
   product,
   handleincreaseProduct,
-  reduceProduct,
-  removeProduct,
+  handlereduceProduct,
+  handleremoveProduct,
 }) => {
   const {
     id,
@@ -33,7 +33,7 @@ const ProductShopCart = ({
             <Button
               variant="outline-secondary"
               className="col-3 ml-1 p-0 btn-sm"
-              onClick={reduceProduct(idProduct)}
+              onClick={handlereduceProduct(idProduct)}
             >
               -
             </Button>
@@ -54,7 +54,7 @@ const ProductShopCart = ({
           </div>
         </div>
         <div className="remove-wrap text-center mt-3">
-          <Button variant="outline-danger" className="btn-sm w-50" onClick={removeProduct(id)}>
+          <Button variant="outline-danger" className="btn-sm w-50" onClick={handleremoveProduct(idProduct)}>
             удалить
           </Button>
         </div>

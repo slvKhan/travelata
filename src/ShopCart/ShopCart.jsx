@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { findLastKey } from 'lodash';
+import { findLastKey, omit } from 'lodash';
 import Product from './Product';
 import ProductInShopCart from './ProductInShopCart';
 
@@ -51,7 +51,31 @@ export default class ShopCart extends React.Component {
       idProduct: value.idProduct,
       amount: value.amount + 1,
     };
+
     this.setState({ selectedProducts: { ...selectedProducts, [key]: { ...newSelectedProduct } } });
+  }
+
+  reduceProduct = (id) => {
+    const { selectedProducts } = this.state;
+    const [[key, value]] = Object
+      .entries(selectedProducts)
+      .filter(([, product]) => product.idProduct === id);
+
+    const newSelectedProduct = {
+      idProduct: value.idProduct,
+      amount: value.amount - 1,
+    };
+
+    this.setState({ selectedProducts: { ...selectedProducts, [key]: { ...newSelectedProduct } } });
+  }
+
+  removeProduct = (id) => {
+    const { selectedProducts } = this.state;
+    const [[key]] = Object
+      .entries(selectedProducts)
+      .filter(([, product]) => product.idProduct === id);
+    const newSelectedProducts = omit(selectedProducts, [key]);
+    this.setState({ selectedProducts: newSelectedProducts });
   }
 
   handleAddProduct = (id) => (e) => {
@@ -79,16 +103,14 @@ export default class ShopCart extends React.Component {
     this.increaseProduct(id);
   }
 
-  reduceProduct = (id) => (e) => {
+  handlereduceProduct = (id) => (e) => {
     e.preventDefault();
-    const selectedProduct = this.getProduct(id);
-    alert(JSON.stringify(selectedProduct));
+    this.reduceProduct(id);
   }
 
-  removeProduct = (id) => (e) => {
+  handleremoveProduct = (id) => (e) => {
     e.preventDefault();
-    const selectedProduct = this.getProduct(id);
-    alert(JSON.stringify(selectedProduct));
+    this.removeProduct(id);
   }
 
   productsCartHeader = (amountPrice, amountProducts, titleStyle) => {
@@ -174,8 +196,8 @@ export default class ShopCart extends React.Component {
                 key={product.idProduct}
                 product={product}
                 handleincreaseProduct={this.handleincreaseProduct}
-                reduceProduct={this.reduceProduct}
-                removeProduct={this.reduceProduct}
+                handlereduceProduct={this.handlereduceProduct}
+                handleremoveProduct={this.handleremoveProduct}
               />
             ))}
           </div>
