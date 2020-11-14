@@ -30,7 +30,7 @@ export default class ShopCart extends React.Component {
         <h1 className="mb-4 text-left">Корзина</h1>
         <div className="row">
 
-          <div className="products col-6">
+          <div className="products col-lg-6">
             <h2 className="mb-5 text-left" style={titleStyle}>
               Имеющиеся категории товаров
               <span> </span>
@@ -39,7 +39,7 @@ export default class ShopCart extends React.Component {
             { products.map((el) => <Product key={el.id} feats={el} />)}
           </div>
 
-          <div className="products col-6">
+          <div className="products col-lg-6">
             <h2 className="mb-5 text-left" style={titleStyle}>
               В корзине 6 товаров на сумму 310000 рублей
             </h2>

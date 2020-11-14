@@ -16,7 +16,9 @@ const Product = ({ feats }) => {
           <span>{amount}</span>
         </span>
 
-        <span className="product-name col-3">{` ${productName} `}</span>
+        <span className="product-name col-3">
+          {productName}
+        </span>
 
         <span className="price col-3">
           <span>по</span>
