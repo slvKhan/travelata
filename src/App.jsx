@@ -1,6 +1,7 @@
+import React from 'react';
+import Button from 'react-bootstrap/Button';
 import logo from './logo.svg';
 import './App.css';
-import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -10,7 +11,9 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <Button>Test</Button>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Edit
+          <code>src/App.js</code>
+          and save to reload.
         </p>
         <a
           className="App-link"
