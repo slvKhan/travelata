@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 
-const Product = ({ feats }) => {
+const Product = ({ feats, addProduct }) => {
   const {
     id, productName, price, amount,
   } = feats;
@@ -12,8 +12,7 @@ const Product = ({ feats }) => {
       <Card.Body className="row">
         <span className="amount col-3">
           <span>Осталось</span>
-          <span> </span>
-          <span>{amount}</span>
+          <span>{` ${amount} `}</span>
         </span>
 
         <span className="product-name col-3">
@@ -22,13 +21,11 @@ const Product = ({ feats }) => {
 
         <span className="price col-3">
           <span>по</span>
-          <span> </span>
-          <span>{price}</span>
-          <span> </span>
+          <span>{` ${price} `}</span>
           <span>рублей</span>
         </span>
 
-        <Button variant="primary" className="col-3">Добавить в корзину</Button>
+        <Button variant="primary" className="col-3" onClick={addProduct(id)}>Добавить в корзину</Button>
       </Card.Body>
     </Card>
   );
