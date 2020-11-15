@@ -16,7 +16,7 @@ export default class ShopCart extends React.Component {
 
   componentDidMount() {
     this.fetchProducts();
-    this.updateSelectedProducByStore(this.key);
+    this.updateSelectedProductsByStore(this.key);
   }
 
   componentDidUpdate() {
@@ -44,49 +44,39 @@ export default class ShopCart extends React.Component {
     return result;
   }
 
-  isProductSelected = (id) => {
+  getSelectedProduct = (id) => {
     const { selectedProducts } = this.state;
     const [selectedProduct] = Object
       .entries(selectedProducts)
       .filter(([, product]) => product.idProduct === id);
 
-    return !!selectedProduct;
+    return selectedProduct;
   }
 
-  isLastProduct = (id) => {
-    const { selectedProducts } = this.state;
-    const [[, value]] = Object
-      .entries(selectedProducts)
-      .filter(([, product]) => product.idProduct === id);
+  isProductSelected = (id) => this.getSelectedProduct(id);
 
+  isLastProduct = (id) => {
+    const [, value] = this.getSelectedProduct(id);
     return value.amount === 1;
   }
 
-  increaseProduct = (id) => {
+  updateProduct = (type, id) => {
     const { selectedProducts } = this.state;
-    const [[key, value]] = Object
-      .entries(selectedProducts)
-      .filter(([, product]) => product.idProduct === id);
+    const [key, value] = this.getSelectedProduct(id);
     const newSelectedProduct = {
       idProduct: value.idProduct,
-      amount: value.amount + 1,
+      amount: type === 'increase' ? value.amount + 1 : value.amount - 1,
     };
 
     this.setState({ selectedProducts: { ...selectedProducts, [key]: { ...newSelectedProduct } } });
   }
 
+  increaseProduct = (id) => {
+    this.updateProduct('increase', id);
+  }
+
   reduceProduct = (id) => {
-    const { selectedProducts } = this.state;
-    const [[key, value]] = Object
-      .entries(selectedProducts)
-      .filter(([, product]) => product.idProduct === id);
-
-    const newSelectedProduct = {
-      idProduct: value.idProduct,
-      amount: value.amount - 1,
-    };
-
-    this.setState({ selectedProducts: { ...selectedProducts, [key]: { ...newSelectedProduct } } });
+    this.updateProduct('reduce', id);
   }
 
   removeProduct = (id) => {
@@ -119,12 +109,12 @@ export default class ShopCart extends React.Component {
     });
   }
 
-  handleincreaseProduct = (id) => (e) => {
+  handleIncreaseProduct = (id) => (e) => {
     e.preventDefault();
     this.increaseProduct(id);
   }
 
-  handlereduceProduct = (id) => (e) => {
+  handleReduceProduct = (id) => (e) => {
     e.preventDefault();
     if (this.isLastProduct(id)) {
       this.removeProduct(id);
@@ -134,7 +124,7 @@ export default class ShopCart extends React.Component {
     this.reduceProduct(id);
   }
 
-  handleremoveProduct = (id) => (e) => {
+  handleRemoveProduct = (id) => (e) => {
     e.preventDefault();
     this.removeProduct(id);
   }
@@ -143,7 +133,7 @@ export default class ShopCart extends React.Component {
     localStorage.setItem(key, JSON.stringify(selectedProducts));
   }
 
-  updateSelectedProducByStore = (key) => {
+  updateSelectedProductsByStore = (key) => {
     const localSelectedProducts = localStorage.getItem(key);
     if (!localSelectedProducts) {
       return;
@@ -240,9 +230,9 @@ export default class ShopCart extends React.Component {
               <ProductInShopCart
                 key={product.idProduct}
                 product={product}
-                handleincreaseProduct={this.handleincreaseProduct}
-                handlereduceProduct={this.handlereduceProduct}
-                handleremoveProduct={this.handleremoveProduct}
+                handleIncreaseProduct={this.handleIncreaseProduct}
+                handleReduceProduct={this.handleReduceProduct}
+                handleRemoveProduct={this.handleRemoveProduct}
                 increaseDisabled={!this.canAddProduct(product.idProduct)}
               />
             ))}

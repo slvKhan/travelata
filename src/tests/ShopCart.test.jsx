@@ -17,12 +17,6 @@ afterEach(() => {
   container = null;
 });
 
-// test('renders before fetch products', () => {
-//   render(<ShopCart />);
-//   const linkElement = screen.getByText(/...loading/i);
-//   expect(linkElement).toBeInTheDocument();
-// });
-
 it('renders after fetch products', async () => {
   const fakeProducts = {
     products: [

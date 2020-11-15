@@ -4,9 +4,9 @@ import { Card, Button } from 'react-bootstrap';
 
 const ProductShopCart = ({
   product,
-  handleincreaseProduct,
-  handlereduceProduct,
-  handleremoveProduct,
+  handleIncreaseProduct,
+  handleReduceProduct,
+  handleRemoveProduct,
   increaseDisabled,
 }) => {
   const {
@@ -34,7 +34,7 @@ const ProductShopCart = ({
             <Button
               variant="outline-secondary"
               className="col-3 ml-1 p-0 btn-sm"
-              onClick={handlereduceProduct(idProduct)}
+              onClick={handleReduceProduct(idProduct)}
             >
               -
             </Button>
@@ -43,7 +43,7 @@ const ProductShopCart = ({
             <Button
               variant="outline-success"
               className="col-3 ml-1 p-0 btn-sm"
-              onClick={handleincreaseProduct(idProduct)}
+              onClick={handleIncreaseProduct(idProduct)}
               disabled={increaseDisabled}
             >
               +
@@ -60,7 +60,7 @@ const ProductShopCart = ({
           <Button
             variant="outline-danger"
             className="btn-sm w-50"
-            onClick={handleremoveProduct(idProduct)}
+            onClick={handleRemoveProduct(idProduct)}
           >
             удалить
           </Button>

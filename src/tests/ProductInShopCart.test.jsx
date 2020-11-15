@@ -10,9 +10,9 @@ test('ProductShopCart render_1', () => {
   const amountPrice = 10;
   const amount = 1;
 
-  const handleremoveProduct = () => null;
-  const handleincreaseProduct = () => null;
-  const handlereduceProduct = () => null;
+  const handleRemoveProduct = () => null;
+  const handleIncreaseProduct = () => null;
+  const handleReduceProduct = () => null;
   const increaseDisabled = false;
 
   const product = {
@@ -26,9 +26,9 @@ test('ProductShopCart render_1', () => {
   const component = renderer.create(<ProductShopCart
     key={product.idProduct}
     product={product}
-    handleincreaseProduct={handleincreaseProduct}
-    handlereduceProduct={handlereduceProduct}
-    handleremoveProduct={handleremoveProduct}
+    handleIncreaseProduct={handleIncreaseProduct}
+    handleReduceProduct={handleReduceProduct}
+    handleRemoveProduct={handleRemoveProduct}
     increaseDisabled={increaseDisabled}
   />);
 
@@ -42,9 +42,9 @@ test('ProductShopCart render_2', () => {
   const price = 2;
   const amount = 6;
 
-  const handleremoveProduct = () => null;
-  const handleincreaseProduct = () => null;
-  const handlereduceProduct = () => null;
+  const handleRemoveProduct = () => null;
+  const handleIncreaseProduct = () => null;
+  const handleReduceProduct = () => null;
   const increaseDisabled = true;
 
   const product = {
@@ -57,9 +57,9 @@ test('ProductShopCart render_2', () => {
   const component = renderer.create(<ProductShopCart
     key={product.idProduct}
     product={product}
-    handleincreaseProduct={handleincreaseProduct}
-    handlereduceProduct={handlereduceProduct}
-    handleremoveProduct={handleremoveProduct}
+    handleIncreaseProduct={handleIncreaseProduct}
+    handleReduceProduct={handleReduceProduct}
+    handleRemoveProduct={handleRemoveProduct}
     increaseDisabled={increaseDisabled}
   />);
 
