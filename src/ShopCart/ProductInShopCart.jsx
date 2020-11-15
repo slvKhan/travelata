@@ -55,8 +55,13 @@ const ProductShopCart = ({
             <span>рублей</span>
           </div>
         </div>
+
         <div className="remove-wrap text-center mt-3">
-          <Button variant="outline-danger" className="btn-sm w-50" onClick={handleremoveProduct(idProduct)}>
+          <Button
+            variant="outline-danger"
+            className="btn-sm w-50"
+            onClick={handleremoveProduct(idProduct)}
+          >
             удалить
           </Button>
         </div>

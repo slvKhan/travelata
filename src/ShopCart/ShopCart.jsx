@@ -19,8 +19,6 @@ export default class ShopCart extends React.Component {
           amount: 3,
         },
       },
-      amountPrice: 31000,
-      amountProducts: 4,
     };
   }
 
@@ -143,7 +141,14 @@ export default class ShopCart extends React.Component {
     this.removeProduct(id);
   }
 
-  productsCartHeader = (amountPrice, amountProducts, titleStyle) => {
+  productsCartHeader = (selectedProductMapped, titleStyle) => {
+    const amountProducts = selectedProductMapped.reduce((totalProducts, product) => (
+      totalProducts + product.amount
+    ), 0);
+    const amountPrice = selectedProductMapped.reduce((totalPrice, product) => (
+      totalPrice + product.amountPrice
+    ), 0);
+
     const ProductCartHeaderContent = (
       <span>
         В кознине
@@ -171,8 +176,6 @@ export default class ShopCart extends React.Component {
   render() {
     const {
       products,
-      amountPrice,
-      amountProducts,
       selectedProducts,
     } = this.state;
 
@@ -210,21 +213,18 @@ export default class ShopCart extends React.Component {
 
           <div className="products col-lg-6">
             {CategoryHeader}
-            {products.map((product) => {
-              const btnDisabled = !this.canAddProduct(product.id);
-              return (
-                <Product
-                  key={product.id}
-                  product={product}
-                  btnDisabled={btnDisabled}
-                  addProduct={this.handleAddProduct}
-                />
-              );
-            })}
+            {products.map((product) => (
+              <Product
+                key={product.id}
+                product={product}
+                btnDisabled={!this.canAddProduct(product.id)}
+                addProduct={this.handleAddProduct}
+              />
+            ))}
           </div>
 
           <div className="products col-lg-6">
-            {this.productsCartHeader(amountPrice, amountProducts, titleStyle)}
+            {this.productsCartHeader(selectedProductMapped, titleStyle)}
             {selectedProductMapped.map((product) => (
               <ProductInShopCart
                 key={product.idProduct}
