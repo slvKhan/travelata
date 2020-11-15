@@ -28,9 +28,24 @@ export default class ShopCart extends React.Component {
     this.fetchProducts();
   }
 
+  canAddProduct = (id) => {
+    const { selectedProducts } = this.state;
+    const selectedProductsArray = Object
+      .entries(selectedProducts)
+      .filter(([, product]) => product.idProduct === id);
+
+    if (!selectedProductsArray.length) {
+      return true;
+    }
+
+    const [[, selectedProduct]] = selectedProductsArray;
+    return this.getProduct(id).amount > selectedProduct.amount;
+  }
+
   getProduct = (id) => {
     const { products } = this.state;
-    return products.filter((product) => product.id === id);
+    const [result] = products.filter((product) => product.id === id);
+    return result;
   }
 
   isProductSelected = (id) => {
@@ -195,13 +210,17 @@ export default class ShopCart extends React.Component {
 
           <div className="products col-lg-6">
             {CategoryHeader}
-            {products.map((product) => (
-              <Product
-                key={product.id}
-                product={product}
-                addProduct={this.handleAddProduct}
-              />
-            ))}
+            {products.map((product) => {
+              const btnDisabled = !this.canAddProduct(product.id);
+              return (
+                <Product
+                  key={product.id}
+                  product={product}
+                  btnDisabled={btnDisabled}
+                  addProduct={this.handleAddProduct}
+                />
+              );
+            })}
           </div>
 
           <div className="products col-lg-6">
@@ -213,6 +232,7 @@ export default class ShopCart extends React.Component {
                 handleincreaseProduct={this.handleincreaseProduct}
                 handlereduceProduct={this.handlereduceProduct}
                 handleremoveProduct={this.handleremoveProduct}
+                increaseDisabled={!this.canAddProduct(product.idProduct)}
               />
             ))}
           </div>

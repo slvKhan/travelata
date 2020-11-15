@@ -7,6 +7,7 @@ const ProductShopCart = ({
   handleincreaseProduct,
   handlereduceProduct,
   handleremoveProduct,
+  increaseDisabled,
 }) => {
   const {
     id,
@@ -43,6 +44,7 @@ const ProductShopCart = ({
               variant="outline-success"
               className="col-3 ml-1 p-0 btn-sm"
               onClick={handleincreaseProduct(idProduct)}
+              disabled={increaseDisabled}
             >
               +
             </Button>

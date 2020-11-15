@@ -1,14 +1,19 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import cn from 'classnames';
 import { Card, Button } from 'react-bootstrap';
 
-const Product = ({ product, addProduct }) => {
+const Product = ({ product, addProduct, btnDisabled }) => {
   const {
     id,
     productName,
     price,
     amount,
   } = product;
+
+  const btnClass = cn('col-3', {
+    disabled: btnDisabled,
+  });
 
   return (
     <Card id={id} className="mb-2">
@@ -28,7 +33,14 @@ const Product = ({ product, addProduct }) => {
           <span>рублей</span>
         </span>
 
-        <Button variant="primary" className="col-3" onClick={addProduct(id)}>Добавить в корзину</Button>
+        <Button
+          variant="primary"
+          className={btnClass}
+          onClick={addProduct(id)}
+          disabled={btnDisabled}
+        >
+          Добавить в корзину
+        </Button>
       </Card.Body>
     </Card>
   );
