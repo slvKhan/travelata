@@ -35,7 +35,7 @@ export default class ShopCart extends React.Component {
     }
 
     const [[, selectedProduct]] = selectedProductsArray;
-    return this.getProduct(id).amount > selectedProduct.amount;
+    return this.getProduct(id).maxPerPerson > selectedProduct.amount;
   }
 
   getProduct = (id) => {
