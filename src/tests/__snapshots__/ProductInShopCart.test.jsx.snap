@@ -1,0 +1,164 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProductShopCart render_1 1`] = `
+<div
+  className="mb-3 card"
+  id={4}
+>
+  <div
+    className="card-body"
+  >
+    <div
+      className="content-wrap row"
+    >
+      <span
+        className="amount pr-0 col-1"
+      >
+        <span>
+          №
+        </span>
+        <span>
+          1
+        </span>
+      </span>
+      <span
+        className="product-name col-3"
+      >
+        Телефон
+      </span>
+      <div
+        className="quantity-controll col-3"
+      >
+        <button
+          className="col-3 ml-1 p-0 btn-sm btn btn-outline-secondary"
+          disabled={false}
+          onClick={null}
+          type="button"
+        >
+          -
+        </button>
+        <span>
+           1 
+        </span>
+        <span>
+          шт
+        </span>
+        <button
+          className="col-3 ml-1 p-0 btn-sm btn btn-outline-success"
+          disabled={false}
+          onClick={null}
+          type="button"
+        >
+          +
+        </button>
+      </div>
+      <div
+        className="amount-price p-0 "
+      >
+        <span>
+          на сумму
+        </span>
+        <span>
+           10 
+        </span>
+        <span>
+          рублей
+        </span>
+      </div>
+    </div>
+    <div
+      className="remove-wrap text-center mt-3"
+    >
+      <button
+        className="btn-sm w-50 btn btn-outline-danger"
+        disabled={false}
+        onClick={null}
+        type="button"
+      >
+        удалить
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ProductShopCart render_2 1`] = `
+<div
+  className="mb-3 card"
+>
+  <div
+    className="card-body"
+  >
+    <div
+      className="content-wrap row"
+    >
+      <span
+        className="amount pr-0 col-1"
+      >
+        <span>
+          №
+        </span>
+        <span>
+          51
+        </span>
+      </span>
+      <span
+        className="product-name col-3"
+      >
+        text 2
+      </span>
+      <div
+        className="quantity-controll col-3"
+      >
+        <button
+          className="col-3 ml-1 p-0 btn-sm btn btn-outline-secondary"
+          disabled={false}
+          onClick={null}
+          type="button"
+        >
+          -
+        </button>
+        <span>
+           6 
+        </span>
+        <span>
+          шт
+        </span>
+        <button
+          className="col-3 ml-1 p-0 btn-sm btn btn-outline-success"
+          disabled={true}
+          onClick={null}
+          type="button"
+        >
+          +
+        </button>
+      </div>
+      <div
+        className="amount-price p-0 "
+      >
+        <span>
+          на сумму
+        </span>
+        <span>
+           undefined 
+        </span>
+        <span>
+          рублей
+        </span>
+      </div>
+    </div>
+    <div
+      className="remove-wrap text-center mt-3"
+    >
+      <button
+        className="btn-sm w-50 btn btn-outline-danger"
+        disabled={false}
+        onClick={null}
+        type="button"
+      >
+        удалить
+      </button>
+    </div>
+  </div>
+</div>
+`;

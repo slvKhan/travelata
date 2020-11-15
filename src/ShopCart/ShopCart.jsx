@@ -191,7 +191,7 @@ export default class ShopCart extends React.Component {
     } = this.state;
 
     if (!products.length) {
-      return null;
+      return '...loading';
     }
 
     const selectedProductMapped = Object.entries(selectedProducts).map(([key, value]) => {
