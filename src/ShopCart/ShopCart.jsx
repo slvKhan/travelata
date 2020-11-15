@@ -7,23 +7,21 @@ import ProductInShopCart from './ProductInShopCart';
 export default class ShopCart extends React.Component {
   constructor(props) {
     super(props);
+    this.key = 'selectedProducts';
     this.state = {
       products: [],
-      selectedProducts: {
-        1: {
-          idProduct: 2,
-          amount: 1,
-        },
-        2: {
-          idProduct: 5,
-          amount: 3,
-        },
-      },
+      selectedProducts: {},
     };
   }
 
   componentDidMount() {
     this.fetchProducts();
+    this.updateSelectedProducByStore(this.key);
+  }
+
+  componentDidUpdate() {
+    const { selectedProducts } = this.state;
+    this.saveInStore(this.key, selectedProducts);
   }
 
   canAddProduct = (id) => {
@@ -139,6 +137,19 @@ export default class ShopCart extends React.Component {
   handleremoveProduct = (id) => (e) => {
     e.preventDefault();
     this.removeProduct(id);
+  }
+
+  saveInStore = (key, selectedProducts) => {
+    localStorage.setItem(key, JSON.stringify(selectedProducts));
+  }
+
+  updateSelectedProducByStore = (key) => {
+    const localSelectedProducts = localStorage.getItem(key);
+    if (!localSelectedProducts) {
+      return;
+    }
+
+    this.setState({ selectedProducts: JSON.parse(localSelectedProducts) });
   }
 
   productsCartHeader = (selectedProductMapped, titleStyle) => {
